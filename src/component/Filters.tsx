@@ -18,7 +18,7 @@ function Filters({ filtersRef, headerValues, onFilterChange }: FiltersProps) {
         } else {
             onFilterChange();
         }
-    }, [filterField, filterType, filterValue]);
+    }, [filterField, filterType, filterValue, onFilterChange]);
 
     return (
         <div style={{ display: 'flex' }} ref={filtersRef}>

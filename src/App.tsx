@@ -71,7 +71,7 @@ function App() {
 
     // TODO: wonky typing
     tableInstance.setFilter(filterState[0], filterState[1], filterState[2]);
-  }, [filterState]);
+  }, [filterState, tableInstance]);
 
   if (!parseResults.finished && !showError) {
     return null;
