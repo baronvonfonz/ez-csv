@@ -13,6 +13,7 @@
     "@types/react": "^18.2.12",
     "@types/react-dom": "^18.2.5",
     "@types/tabulator-tables": "^5.4.8",
+    "lodash.debounce": "^4.0.8",
     "papaparse": "5.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -44,5 +45,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7"
   }
 }
