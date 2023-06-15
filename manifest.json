@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ez-csv",
+  "name": "ez-csv quick data viewer",
   "icons": [
     {
       "src": "favicon.ico",
