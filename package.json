@@ -1,5 +1,6 @@
 {
   "name": "ez-csv",
+  "homepage": "https://baronvonfonz.github.io/ez-csv/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
