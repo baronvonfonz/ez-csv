@@ -7,6 +7,8 @@ import './App.css';
 import Error, { ErrorProps } from './component/Error';
 import Loading, { LoadingProps } from './component/Loading';
 import Filters from './component/Filters';
+import { urlOrUndefined } from './util/common';
+import { ENCODED_URL_QUERY_PARAM } from './const/common';
 
 const RESULTS_TABLE_ID = 'results-table';
 
@@ -19,17 +21,17 @@ function App() {
   const [headerValues, setHeaderValues] = useState<string[]>();
   const filtersRef = useRef<HTMLDivElement | null>(null);
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const encodedUrl = urlParams.get('encodedUrl');
   const debouncedFilterState = debounce(setFilterState, 500);
 
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedUrl = urlParams.get(ENCODED_URL_QUERY_PARAM);
     if (!encodedUrl) {
-      setShowError({ message: `No query param for 'encodedUrl'`});
+      setShowError({ message: `No query param for '${ENCODED_URL_QUERY_PARAM}'`});
       return;
     }
     const decodedUrl = decodeURIComponent(encodedUrl);
-    const parsedUrl = new URL(decodedUrl);
+    const parsedUrl = urlOrUndefined(encodedUrl);
     
     if (!parsedUrl || !['http:', 'https:'].includes(parsedUrl.protocol)) {
       setShowError({ message: `Decoded url is malformed or not http[s]: ${parsedUrl}`});
@@ -44,18 +46,21 @@ function App() {
         setParseResults({ finished: true, data: results.data });
       },          
     })
-  }, [encodedUrl]);
+  }, []);
 
   useEffect(() => {
-    if (!parseResults.data?.length || !filtersRef.current) {
+    if (!parseResults.data?.length || !filtersRef.current || !headerValues?.length) {
       return;
     }
+    console.log(headerValues);
+    console.log(parseResults);
     setShowLoading(undefined);
     // TODO: config and stuff
     setTableInstance(new Tabulator(`#${RESULTS_TABLE_ID}`, {
       height: window.innerHeight - (filtersRef.current.clientHeight + 5),
       data: parseResults.data,
       autoColumns: true,
+      renderHorizontal: 'virtual',
    }));
   }, [parseResults]);
 
@@ -68,10 +73,10 @@ function App() {
       tableInstance.clearFilter(true);
       return;
     }
-
+    console.log(filterState)
     // TODO: wonky typing
     tableInstance.setFilter(filterState[0], filterState[1], filterState[2]);
-  }, [filterState, tableInstance]);
+  }, [filterState]);
 
   if (!parseResults.finished && !showError) {
     return null;

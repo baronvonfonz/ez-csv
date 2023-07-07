@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.well {
+  display: inline-block;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.well:hover {
+  background-color: #e0e0e0;
+}
+
+.copied {
+  background-color: #d7ffd7 !important;
+  border-color: #5ca45c !important;
+}
